@@ -20,6 +20,20 @@ ToDo.init(
       allowNull: true,
       defaultValue: "",
     },
+    isDone:{
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    isFavourite:{
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    priority:{
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
   },
   { sequelize: sequelize, underscored: true, modelName: "todo" }
 );
