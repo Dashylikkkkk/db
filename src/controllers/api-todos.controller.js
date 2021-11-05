@@ -3,7 +3,6 @@ const ErrorResponse = require("../classes/error-response");
 const ToDo = require("../dataBase/models/ToDo.model");
 const { asyncHandler } = require("../middlewares/middlewares");
 
-
 const router = Router();
 
 function initRoutes() {
@@ -32,23 +31,20 @@ async function getToDoById(req, res, next) {
 }
 
 async function createToDo(req, res, next) {
-  const todo = await ToDo.create({
-    title: req.headers.title,
-    description: req.headers.description,
-    isDone: req.headers.isDone,
-    isFavourite: req.headers.isFavourite,
-    priority: req.headers.priority,
-  });
+  const todo = await ToDo.create(req.body);
 
   res.status(200).json(todo);
 }
 
 async function patchToDoById(req, res, next) {
-  await ToDo.update({
-    where: {
-      id: req.params.id,
-    },
-  });
+  await ToDo.update(
+    { ...req.body },
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+  );
   res.status(200).json({ message: "Updated" });
 }
 
@@ -64,7 +60,11 @@ async function deleteAllToDos(req, res, next) {
 async function deleteToDoById(req, res, next) {
   let id = req.params.id;
   let todo = await ToDo.findByPk(id);
-  
+
+  if (!todo) {
+    throw new ErrorResponse("No todo found", 404);
+  }
+
   await todo.destroy();
 
   res.status(200).json({ message: "Deteled" });
