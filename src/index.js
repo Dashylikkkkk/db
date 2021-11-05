@@ -3,7 +3,7 @@ const http = require('http');
 const cors = require('cors');
 const app = express();
 const { func } = require('./dataBase');
-const apirouter = require('./controllers/api.controller');
+const apirouter = require('./controllers/api-todos.controller');
 const testrouter = require('./controllers/test.controller');
 const { notFound, errorHandler } = require("./middlewares/middlewares");
 
@@ -31,6 +31,6 @@ app.use('/test', testrouter);
 app.use(notFound);
 app.use(errorHandler);
 
-http.createServer(app).listen(3000, () => {
-  console.log('Server is working on port 3000');
+http.createServer(app).listen(3001, () => {
+  console.log('Server is working on port 3001');
 })

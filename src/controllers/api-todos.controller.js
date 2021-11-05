@@ -2,7 +2,7 @@ const { Router } = require("express");
 const ErrorResponse = require("../classes/error-response");
 const ToDo = require("../dataBase/models/ToDo.model");
 const { asyncHandler } = require("../middlewares/middlewares");
-const ErrorResponse = require("../classes/error-response");
+
 
 const router = Router();
 
@@ -44,23 +44,30 @@ async function createToDo(req, res, next) {
 }
 
 async function patchToDoById(req, res, next) {
-  
+  await ToDo.update({
+    where: {
+      id: req.params.id,
+    },
+  });
+  res.status(200).json({ message: "Updated" });
 }
 
 async function deleteAllToDos(req, res, next) {
-  ToDo.destroy({
+  await ToDo.destroy({
     where: {
       userId: req.userId,
     },
   });
+  res.status(200).json({ message: "Deteled" });
 }
 
 async function deleteToDoById(req, res, next) {
-  const id = req.params.id;
-  ToDo.delete(id, (err) => {
-    if (err) return next(err);
-    res.send({ message: "Deleted" });
-  });
+  let id = req.params.id;
+  let todo = await ToDo.findByPk(id);
+  
+  await todo.destroy();
+
+  res.status(200).json({ message: "Deteled" });
 }
 
 initRoutes();

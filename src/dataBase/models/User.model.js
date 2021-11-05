@@ -10,10 +10,6 @@ User.init(
       primaryKey: true,
       defaultValue: Sequelize.DataTypes.UUIDV4,
     },
-    userId: {
-        type: Sequelize.DataTypes.UUID,
-        defaultValue: Sequelize.DataTypes.UUIDV4,
-    },
     login: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -22,7 +18,6 @@ User.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
-
     email: {
       type: Sequelize.STRING,
       allowNull: false,
