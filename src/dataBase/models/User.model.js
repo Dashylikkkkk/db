@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("..");
+const ToDo = require("./ToDo.model");
+const Token = require("./Token.model");
 
 class User extends Sequelize.Model {}
 
@@ -31,5 +33,14 @@ User.init(
   { sequelize: sequelize, underscored: true, modelName: "user" }
 );
 
+User.hasMany(ToDo);
+ToDo.belongsTo(User, {
+  foreignKey: "userId",
+});
+
+User.hasMany(Token);
+Token.belongsTo(User, {
+  foreignKey: "userId",
+});
 
 module.exports = User;

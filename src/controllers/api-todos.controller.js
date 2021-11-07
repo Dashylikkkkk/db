@@ -1,20 +1,21 @@
 const { Router } = require("express");
 const ErrorResponse = require("../classes/error-response");
 const ToDo = require("../dataBase/models/ToDo.model");
-const { asyncHandler } = require("../middlewares/middlewares");
+const { asyncHandler, requireToken } = require("../middlewares/middlewares");
 
 const router = Router();
 
 function initRoutes() {
-  router.get("/", asyncHandler(getToDo));
-  router.get("/:id", asyncHandler(getToDoById));
-  router.post("/", asyncHandler(createToDo));
-  router.patch("/:id", asyncHandler(patchToDoById));
-  router.delete("/", asyncHandler(deleteAllToDos));
-  router.delete("/:id", asyncHandler(deleteToDoById));
+  router.get("/", asyncHandler(requireToken), asyncHandler(getToDo));
+  router.get("/:id",  asyncHandler(requireToken),asyncHandler(getToDoById));
+  router.post("/", asyncHandler(requireToken), asyncHandler(createToDo));
+  router.patch("/:id", asyncHandler(requireToken), asyncHandler(patchToDoById));
+  router.delete("/",  asyncHandler(requireToken),asyncHandler(deleteAllToDos));
+  router.delete("/:id", asyncHandler(requireToken), asyncHandler(deleteToDoById));
 }
 
 async function getToDo(req, res, next) {
+  
   const todos = await ToDo.findAll();
 
   res.status(200).json({ todos });
