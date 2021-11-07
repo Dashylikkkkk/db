@@ -14,7 +14,7 @@ function initRoutes() {
   router.delete("/:id",asyncHandler(requireToken),asyncHandler(deleteToDoById));
 }
 
-async function getToDo(req, res, next) {
+async function getToDo(req, res, _next) {
   const todos = await ToDo.findAll({
     where: {
       userId: req.userId,

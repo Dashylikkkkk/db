@@ -28,9 +28,11 @@ const errorHandler = (err, _req, res, _next) => {
 };
 
 const requireToken = async (req, _res, next) => {
-  let token = await Token.findOne({
+  const token = req.header("token");
+
+  let tokenFind = await Token.findOne({
     where: {
-      value: req.headers.token,
+      value: token,
     },
   });
 
@@ -38,7 +40,7 @@ const requireToken = async (req, _res, next) => {
     throw new ErrorResponse("invalid token", 403);
   }
 
-  req.userId = token.userId;
+  req.userId = tokenFind.userId;
   next();
 };
 

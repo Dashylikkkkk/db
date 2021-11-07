@@ -27,13 +27,17 @@ async function updateInfo(req, res, _next) {
 }
 
 async function logout(req, res, _next) {
-  let token = await Token.findOne({
+  //   let token = await Token.findOne({
+  //     where: {
+  //       value: req.headers.token,
+  //     },
+  //   });
+
+  await Token.destroy({
     where: {
-      value: req.headers.token,
+      value: req.header("token"),
     },
   });
-
-  await token.destroy();
 
   res.status(200).json({ message: "Logged out..." });
 }
