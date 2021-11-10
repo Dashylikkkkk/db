@@ -6,8 +6,8 @@ const User = require("../dataBase/models/User.model");
 const router = Router();
 
 function initRoutes() {
-  router.get("/:id", asyncHandler(requireToken), asyncHandler(receiveInfo));
-  router.patch("/:id", asyncHandler(requireToken), asyncHandler(updateInfo));
+  router.get("/me", asyncHandler(requireToken), asyncHandler(receiveInfo));
+  router.patch("/me", asyncHandler(requireToken), asyncHandler(updateInfo));
   router.post("/logout", asyncHandler(requireToken), asyncHandler(logout));
 }
 
@@ -27,12 +27,7 @@ async function updateInfo(req, res, _next) {
 }
 
 async function logout(req, res, _next) {
-  //   let token = await Token.findOne({
-  //     where: {
-  //       value: req.headers.token,
-  //     },
-  //   });
-
+  
   await Token.destroy({
     where: {
       value: req.header("token"),

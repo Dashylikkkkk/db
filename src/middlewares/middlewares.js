@@ -30,13 +30,17 @@ const errorHandler = (err, _req, res, _next) => {
 const requireToken = async (req, _res, next) => {
   const token = req.header("token");
 
+  if (!token) {
+    throw new ErrorResponse("token wasn't send", 403);
+  }
+
   let tokenFind = await Token.findOne({
     where: {
       value: token,
     },
   });
 
-  if (!token) {
+  if (!tokenFind) {
     throw new ErrorResponse("invalid token", 403);
   }
 

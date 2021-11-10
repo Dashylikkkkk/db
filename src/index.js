@@ -5,6 +5,7 @@ const app = express();
 const { func } = require("./dataBase");
 const apiToDosRouter = require("./controllers/api-todos.controller");
 const apiAuthRouter = require("./controllers/api-auth.controller");
+const apiUsersRouter = require("./controllers/api-users.controller")
 const testrouter = require("./controllers/test.controller");
 const { notFound, errorHandler } = require("./middlewares/middlewares");
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 
 app.use("/api/todos", apiToDosRouter);
 app.use("/api/auth", apiAuthRouter);
+app.use("/api/users", apiUsersRouter);
 app.use("/test", testrouter);
 
 app.use(notFound);
