@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const { sequelize } = require("..");
+const Comment = require("./Comment.model");
 const ToDo = require("./ToDo.model");
 const Token = require("./Token.model");
 
@@ -43,4 +44,8 @@ Token.belongsTo(User, {
   foreignKey: "userId",
 });
 
+ToDo.hasMany(Comment);
+Comment.belongsTo(ToDo, {
+  foreignKey: "todoId",
+});
 module.exports = User;

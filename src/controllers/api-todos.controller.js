@@ -35,7 +35,9 @@ async function getToDoById(req, res, _next) {
 }
 
 async function createToDo(req, res, _next) {
-  const todo = await ToDo.create(req.body);
+  const userId = req.userId;
+  const todo = await ToDo.create(
+    { ...req.body, userId });
 
   res.status(200).json(todo);
 }

@@ -12,8 +12,8 @@ const sequelize = new Sequelize({
 async function func() {
   try {
     await sequelize.authenticate();
-    await sequelize.dropSchema("public",{});
-    await sequelize.createSchema("public",{});
+    // await sequelize.dropSchema("public",{});
+    // await sequelize.createSchema("public",{});
     await sequelize.sync();
     console.log("Connected");
   } catch (error) {

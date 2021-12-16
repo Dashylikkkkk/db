@@ -5,8 +5,8 @@ const app = express();
 const { func } = require("./dataBase");
 const apiToDosRouter = require("./controllers/api-todos.controller");
 const apiAuthRouter = require("./controllers/api-auth.controller");
-const apiUsersRouter = require("./controllers/api-users.controller")
-const testrouter = require("./controllers/test.controller");
+const apiUsersRouter = require("./controllers/api-users.controller");
+const apiCommentRouter = require("./controllers/api-comment.controller");
 const { notFound, errorHandler } = require("./middlewares/middlewares");
 
 func();
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 app.use("/api/todos", apiToDosRouter);
 app.use("/api/auth", apiAuthRouter);
 app.use("/api/users", apiUsersRouter);
-app.use("/test", testrouter);
+app.use("/api/comment", apiCommentRouter);
 
 app.use(notFound);
 app.use(errorHandler);
@@ -38,4 +38,3 @@ app.use(errorHandler);
 http.createServer(app).listen(3001, () => {
   console.log("Server is working on port 3001");
 });
-
