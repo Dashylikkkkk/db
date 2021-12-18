@@ -8,7 +8,23 @@ const { nanoid } = require("nanoid");
 const router = Router();
 
 function initRoutes() {
+  router.post("/registration", asyncHandler(registration));
   router.post("/login", asyncHandler(login));
+}
+
+async function registration(req, res, _next) {
+  const worker = await workers.findOne({
+    where: {
+      [Op.or]: {
+        login: req.body.login,
+        password: req.body.password
+      },
+    },
+  });
+
+  worker = await workers.create(req.body);
+
+  res.status(200).json(worker);
 }
 
 async function login(req, res, _next) {
