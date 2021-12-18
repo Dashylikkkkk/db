@@ -14,7 +14,7 @@ function initRoutes() {
 }
 
 async function registration(req, res, _next) {
-  const worker = await workers.findOne({
+  let worker = await workers.findOne({
     where: {
       [Op.or]: {
         login: req.body.login,
