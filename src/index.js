@@ -3,10 +3,15 @@ const http = require("http");
 const cors = require("cors");
 const app = express();
 const { func } = require("./dataBase");
-const apiToDosRouter = require("./controllers/api-todos.controller");
+const { contact_person } = require("./dataBase/models/contact_person");
+const { contract } = require("./dataBase/models/contract");
+const { equipment } = require("./dataBase/models/equipment");
+const { legal_entity } = require("./dataBase/models/legal_entity");
+const { tasks } = require("./dataBase/models/tasks");
+const { workers } = require("./dataBase/models/workers");
+const apiTasksRouter = require("./controllers/api-tasks.controller");
 const apiAuthRouter = require("./controllers/api-auth.controller");
-const apiUsersRouter = require("./controllers/api-users.controller")
-const testrouter = require("./controllers/test.controller");
+const apiUsersRouter = require("./controllers/api-workers.controller");
 const { notFound, errorHandler } = require("./middlewares/middlewares");
 
 func();
@@ -27,10 +32,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/todos", apiToDosRouter);
+app.use("/api/tasks", apiTasksRouter);
 app.use("/api/auth", apiAuthRouter);
 app.use("/api/users", apiUsersRouter);
-app.use("/test", testrouter);
 
 app.use(notFound);
 app.use(errorHandler);
@@ -38,4 +42,3 @@ app.use(errorHandler);
 http.createServer(app).listen(3001, () => {
   console.log("Server is working on port 3001");
 });
-

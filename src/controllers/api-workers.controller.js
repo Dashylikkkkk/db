@@ -1,29 +1,23 @@
 const { Router } = require("express");
 const { asyncHandler, requireToken } = require("../middlewares/middlewares");
-const Token = require("../dataBase/models/Token.model");
-const User = require("../dataBase/models/User.model");
+const Token = require("../dataBase/models/Token");
+const workers = require("../dataBase/models/workers");
+
 
 const router = Router();
 
 function initRoutes() {
   router.get("/me", asyncHandler(requireToken), asyncHandler(receiveInfo));
-  router.patch("/me", asyncHandler(requireToken), asyncHandler(updateInfo));
   router.post("/logout", asyncHandler(requireToken), asyncHandler(logout));
 }
 
 async function receiveInfo(req, res, _next) {
-  let user = await User.findByPk(req.userId);
-  res.status(200).json(user);
-}
-
-async function updateInfo(req, res, _next) {
-  let user = await User.findByPk(req.userId);
-
-  user = await user.update(req.body, {
-    returning: true,
+  let worker = await workers.findByPk(req.id_worker, {
+    attributes: [
+      'id', 'worker_name'
+    ]
   });
-
-  res.status(200).json(user);
+  res.status(200).json(worker);
 }
 
 async function logout(req, res, _next) {
