@@ -139,15 +139,16 @@ const getManager = async (req, res, next) => {
           },
           {
             model: contract,
+            attributes: ["id_contract", "id_org"],
           },
-          {
-            model: contact_person,
-            attributes: ["phone_num", "name", "id_org"],
-            include: {
-              model: legal_entity,
-              attributes: ["id", "org_name"],
-            },
-          },
+          // {
+          //   model: contact_person,
+          //   attributes: ["phone_num", "name", "id_org"],
+          //   include: {
+          //     model: legal_entity,
+          //     attributes: ["id", "org_name"],
+          //   },
+          // },
         ],
       });
       req.task = task;
@@ -167,15 +168,16 @@ const getManager = async (req, res, next) => {
           },
           {
             model: contract,
+            attributes: ["id_contract", "id_org"],
           },
-          {
-            model: contact_person,
-            attributes: ["phone_num", "name", "id_org"],
-            include: {
-              model: legal_entity,
-              attributes: ["id", "org_name"],
-            },
-          },
+          // {
+          //   model: contact_person,
+          //   attributes: ["phone_num", "name", "id_org"],
+          //   include: {
+          //     model: legal_entity,
+          //     attributes: ["id", "org_name"],
+          //   },
+          // },
         ],
       });
       req.task = task;
@@ -200,15 +202,16 @@ const getWorker = async (req, res, next) => {
       include: [
         {
           model: contract,
+          attributes: ["id_contract", "id_org"],
         },
-        {
-          model: contact_person,
-          attributes: ["phone_num", "name", "id_org"],
-          include: {
-            model: legal_entity,
-            attributes: ["id", "org_name"],
-          },
-        },
+        // {
+        //   model: contact_person,
+        //   attributes: ["phone_num", "name", "id_org"],
+        //   include: {
+        //     model: legal_entity,
+        //     attributes: ["id", "org_name"],
+        //   },
+        // },
       ],
     });
     req.task = task;
