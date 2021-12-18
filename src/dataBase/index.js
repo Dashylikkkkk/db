@@ -15,6 +15,7 @@ async function func() {
     // await sequelize.dropSchema("public",{});
     // await sequelize.createSchema("public",{});
     // await sequelize.sync();
+    await sequelize.sync();
     console.log("Connected");
   } catch (error) {
     console.error("Not connected", error);

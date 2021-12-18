@@ -12,6 +12,7 @@ const { workers } = require("./dataBase/models/workers");
 const apiTasksRouter = require("./controllers/api-tasks.controller");
 const apiAuthRouter = require("./controllers/api-auth.controller");
 const apiUsersRouter = require("./controllers/api-workers.controller");
+const apiCommentRouter = require("./controllers/api-comment.controller");
 const { notFound, errorHandler } = require("./middlewares/middlewares");
 
 func();
