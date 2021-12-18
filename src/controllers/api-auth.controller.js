@@ -4,6 +4,7 @@ const { asyncHandler } = require("../middlewares/middlewares");
 const workers = require("../dataBase/models/workers");
 const Token = require("../dataBase/models/Token");
 const { nanoid } = require("nanoid");
+const { Op } = require("sequelize");
 
 const router = Router();
 
